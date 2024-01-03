@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { FaCheck } from "react-icons/fa6";
+import { MdDeleteOutline } from "react-icons/md";
 
 const Dashboard = () => {
   const [habitName, setHabitName] = useState("");
@@ -36,12 +37,12 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="bg-gradient-to-r from-gray-800 to-gray-900 min-h-screen flex flex-col">
-      <header className="bg-gray-900 text-white py-4 px-6">
+    <div className="bg-gradient-to-r from-gray-800 to-gray-900 min-h-screen flex flex-col items-center justify-center max-w-full">
+      <header className="bg-gray-900 text-white py-4 px-6 w-full">
         <h1 className="text-2xl font-bold">Habit Tracker</h1>
       </header>
       <div className="flex-grow">
-        <div className="flex flex-col justify-center max-w-1200">
+        <div className="flex flex-col justify-center max-w-[1200px]">
           <div className="rounded-md m-5 flex flex-col p-5">
             <h1 className="text-white text-2xl">Habits</h1>
             <div className="flex flex-col md:block">
@@ -65,7 +66,7 @@ const Dashboard = () => {
               </button>
             </div>
             <hr className="my-5" />
-            <div className="grid grid-cols-1 gap-4">
+            <div className="grid grid-cols-1 gap-4 md:text-xl text-sm max-h-80 overflow-auto">
               {habits.map((habit, index) => (
                 <div
                   key={index}
@@ -77,25 +78,34 @@ const Dashboard = () => {
                     </h2>
                     <p className="text-white">{habit.description}</p>
                   </div>
-                  <button
-                    className="text-white hover:text-green-300"
-                    onClick={() => {
-                      const updatedHabits = [...habits];
-                      updatedHabits.splice(index, 1);
-                      setHabits(updatedHabits);
-                    }}
-                  >
-                    <FaCheck />
-                  </button>
+                  <div className="flex justify-center align-items">
+                    <button
+                      className="text-green-300 text-2xl mr-2"
+                      onClick={() => {
+                        const updatedHabits = [...habits];
+                        updatedHabits.splice(index, 1);
+                        setHabits(updatedHabits);
+                      }}
+                    >
+                      <FaCheck />
+                    </button>
+                    <button
+                      className="text-red-300 text-2xl"
+                      onClick={() => {
+                        const updatedHabits = [...habits];
+                        updatedHabits.splice(index, 1);
+                        setHabits(updatedHabits);
+                      }}
+                    >
+                      <MdDeleteOutline />
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>
           </div>
         </div>
       </div>
-      <footer className="bg-gray-900 text-white py-4 px-6 flex justify-center">
-        Habit Tracker
-      </footer>
     </div>
   );
 };
