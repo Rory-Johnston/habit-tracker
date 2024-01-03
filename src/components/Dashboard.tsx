@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { FaCheck } from "react-icons/fa6";
 
 const Dashboard = () => {
   const [habitName, setHabitName] = useState("");
@@ -25,7 +26,10 @@ const Dashboard = () => {
   };
 
   const handleAddHabit = () => {
+    if (!habitName || !habitDescription) return;
+
     const newHabit = { name: habitName, description: habitDescription };
+
     setHabits([...habits, newHabit]);
     setHabitName("");
     setHabitDescription("");
@@ -38,18 +42,18 @@ const Dashboard = () => {
       </header>
       <div className="flex-grow">
         <div className="flex flex-col justify-center max-w-1200">
-          <div className="border border-white rounded-md m-5 flex flex-col p-5">
+          <div className="rounded-md m-5 flex flex-col p-5">
             <h1 className="text-white text-2xl">Habits</h1>
-            <div>
+            <div className="flex flex-col md:block">
               <label className="text-white">Habit Name</label>
               <input
-                className="bg-blue-300 rounded-md mx-2 px-4 focus:outline-none"
+                className="bg-gray-900 rounded-md lg:mx-2 px-4 focus:outline-none text-white"
                 value={habitName}
                 onChange={handleHabitNameChange}
               />
               <label className="text-white">Habit Description</label>
               <input
-                className="bg-blue-300 rounded-md mx-2 px-4 focus:outline-none"
+                className="bg-gray-900 rounded-md lg:mx-2 px-4 focus:outline-none text-white"
                 value={habitDescription}
                 onChange={handleHabitDescriptionChange}
               />
@@ -61,11 +65,28 @@ const Dashboard = () => {
               </button>
             </div>
             <hr className="my-5" />
-            <div>
+            <div className="grid grid-cols-1 gap-4">
               {habits.map((habit, index) => (
-                <div key={index}>
-                  <h2 className="text-white text-lg font-bold">{habit.name}</h2>
-                  <p className="text-white">{habit.description}</p>
+                <div
+                  key={index}
+                  className="flex items-center justify-between bg-gray-900 rounded-md p-4"
+                >
+                  <div>
+                    <h2 className="text-white text-lg font-bold">
+                      {habit.name}
+                    </h2>
+                    <p className="text-white">{habit.description}</p>
+                  </div>
+                  <button
+                    className="text-white hover:text-green-300"
+                    onClick={() => {
+                      const updatedHabits = [...habits];
+                      updatedHabits.splice(index, 1);
+                      setHabits(updatedHabits);
+                    }}
+                  >
+                    <FaCheck />
+                  </button>
                 </div>
               ))}
             </div>
